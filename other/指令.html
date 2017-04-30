@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="format-detection" content="telephone=no"/>
+	<!--<meta name="viewport" content="target-densitydpi=device-dpi, width=750px, user-scalable=no"/>-->
+	<title>Title</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+
+	<!--模板-->
+	<div id="demo">
+		<span :cutom="id" @click="handle($event)">{{ message }}</span>
+	</div>
+
+	<script>
+		//数据
+		let obj = {
+			message	: "hello world!",
+			id		: "123",
+			handle	: function (str) {
+				alert(str)
+			}
+		};
+
+		//声明式渲染
+		var vm = new Vue({
+			el		: '#demo',
+			data	: obj
+		});
+
+	</script>
+</body>
+</html>

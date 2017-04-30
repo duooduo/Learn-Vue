@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="format-detection" content="telephone=no"/>
+	<!--<meta name="viewport" content="target-densitydpi=device-dpi, width=750px, user-scalable=no"/>-->
+	<title>Title</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<h3>父组件中使用了count</h3>
+		{{count}}
+		<custom-component :count="count" @increment-click="countHandle"></custom-component>
+	</div>
+
+	<script>
+
+		Vue.component('custom-component',{
+			props: ['count'],
+			data(){
+				return {
+					incrementCount: this.count	// 作为局部这个组件的data的初始值
+				}
+			},
+			computed: {
+				incrementCount2(){
+					return this.incrementCount;
+				}
+			},
+			template: `
+				<div>
+					<h2>我是一个自定义组件</h2>
+					<input type="button" value="改变count的值" @click="changeCount">
+					{{incrementCount}}	data数据改变方式
+					{{incrementCount2}}	计算属性改变方式
+				</div>
+			`,
+			methods: {
+				changeCount(){
+					this.incrementCount ++;
+					// 通知父组件，count发生了改变
+					this.$emit('increment-click');
+				}
+			}
+		});
+
+		new Vue({
+			el: '#app',
+			data: {
+				count: 0
+			},
+			methods: {
+				countHandle(){
+					this.count ++;
+				}
+			}
+		});
+	</script>
+</body>
+</html>

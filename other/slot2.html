@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="format-detection" content="telephone=no"/>
+	<!--<meta name="viewport" content="target-densitydpi=device-dpi, width=750px, user-scalable=no"/>-->
+	<title>Title</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+
+	<div id="app">
+		<h2>自定义组件</h2>
+		<custom>
+			<!-- 当写在自定义标签之间的内容，要混合子组件中的模板 -->
+			<div slot="one">替换第1个提醒</div>
+			<div slot="three">替换第3个提醒</div>
+
+			<template slot="two">
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+				<div>替换第2个标签</div>
+			</template>
+		</custom>
+	</div>
+
+	<script>
+
+		// 定制模板
+		Vue.component('custom',{
+			template: `
+				<div>
+					<slot name="one">
+						<p>这是第1个提醒</p>
+					</slot>
+					<slot name="two">
+						<p>这是第2个提醒</p>
+					</slot>
+					<slot name="three">
+						<p>这是第3个提醒</p>
+					</slot>
+				</div>
+			`
+		});
+
+		// 实例
+		new Vue({
+			el: '#app',
+			
+		});
+	</script>
+</body>
+</html>

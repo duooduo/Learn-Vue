@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="format-detection" content="telephone=no"/>
+	<!--<meta name="viewport" content="target-densitydpi=device-dpi, width=750px, user-scalable=no"/>-->
+	<title>Title</title>
+	<style>
+		.bg { background: yellowgreen;}
+	</style>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<!--模板-->
+	<div id="demo"></div>
+
+
+	<script>
+		//数据
+		let obj = {
+			html	: "<div>hello html 模板</div>",
+			abc		: 1
+		};
+
+		//声明式渲染
+		var vm = new Vue({
+			el		: '#demo',
+			data	: obj,
+			render(createElement){
+
+				return createElement(
+					"ul",
+					{
+						class: {
+							bg: true
+						},
+						style: {
+							fontSize: "30px"
+						},
+						attrs:{
+							abc: "ly"
+						},
+						domProps: {
+							innerHTML: "<li>我是html</li>" // 会覆盖下面的3个li
+						}
+					},
+					[
+						createElement("li",1),
+						createElement("li",2),
+						createElement("li",3),
+					]
+				);
+			}
+		});
+
+	</script>
+</body>
+</html>

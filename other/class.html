@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+	<meta name="format-detection" content="telephone=no"/>
+	<!--<meta name="viewport" content="target-densitydpi=device-dpi, width=750px, user-scalable=no"/>-->
+	<title>Title</title>
+	<style>
+		.red{ color: red;}
+		.fontSize { font-size: 20px;}
+	</style>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<!--模板-->
+	<div id="demo">
+		<span class="fontSize" :class="{red:isAddClass}">adfafadsf</span>
+	</div>
+
+<!--
+绑定class v-bind:class="{key:value}"
+key是需要绑定判断的class名
+value是判断的布尔值 true添加 false不添加
+-->
+	<script>
+		//数据
+		let obj = {
+			isAddClass : true
+		};
+
+		//声明式渲染
+		var vm = new Vue({
+			el		: '#demo',
+			data	: obj
+		});
+
+	</script>
+</body>
+</html>
