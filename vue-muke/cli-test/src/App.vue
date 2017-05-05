@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<h3>指令 事件</h3>
 		<p v-text="hello"></p>
 		<p v-html="hello"></p>
 
@@ -18,7 +19,42 @@
 		<ul>v-for渲染对象
 			<li v-for="(value, key) in objList">{{key}} - {{value}}</li>
 		</ul>
-		<componentA :dataA="dataA"></componentA>
+		<comA :dataA="dataA" @my-event="onComaMyEvent"></comA>
+
+		{{myValue}}
+		<!--<input type="text" v-model="myValue">-->
+		<!--<input type="text" v-model.lazy="myValue">延迟更改，类型string-->
+		<input type="text" v-model.number="myValue">数据类型为number
+		<!--<input type="text" v-model.trim="myValue">裁剪空格-->
+
+		{{myBox}}
+		<input type="radio" v-model="myBox" value="apple">
+		<input type="radio" v-model="myBox" value="banana">
+		<input type="radio" v-model="myBox" value="pinapple">
+
+		{{selection}}
+		<select v-model="selection">
+			<option v-for="item in selectOptions" :value="item.value">{{item.text}}</option>
+		</select>
+
+		<h3>计算属性</h3>
+		<input type="text" v-model="myValue2">
+		{{myValue2WithoutNum}}
+		{{getMyValue2WithouNum()}}
+
+		<p style="text-align: left">1. computed计算属性是基于它们的依赖进行缓存的，只有在它的相关依赖发生改变时才会重新求值</p>
+		<p style="text-align: left">2. 而对于method ，只要发生重新渲染，method 调用总会执行该函数。</p>
+		<p style="text-align: left">[总之]：数据量大，需要缓存的时候用computed；每次确实需要重新加载，不需要缓存时用methods</p>
+		<p style="text-align: left">[总之]：尽量用computed计算属性来监视数据的变化，因为它本身就这个特性，用watch没有computed“自动”，手动设置使代码变复杂。</p>
+
+		<h3>属性监听</h3>
+		<input type="text" v-model="myVal">
+		<ul>
+			<li v-for="item in list">{{item.name}} + {{item.price}}</li>
+		</ul>
+		<button @click="changeList">change</button>
+
+
 
 
 		<hr>
@@ -43,11 +79,11 @@
 </template>
 
 <script>
-import componentA from './components/a.vue';
+import comA from './components/a.vue';
 import Vue from 'vue';
 export default {
 	name: 'app',
-	components: {componentA},
+	components: {comA},
 	data () {
 		return {
 			msg: 'Welcome to Your Vue.js App',
@@ -84,10 +120,51 @@ export default {
 				price: 34,
 				color: 'red',
 				weight: 14
-			}
+			},
+			myValue: "",
+			myBox: [],
+			selection: null,
+			selectOptions: [
+				{
+					text: 'apple',
+					value: 0
+				},
+				{
+					text: 'banana',
+					value: 1
+				}
+			],
+			myValue2: "啊啊11啊",
+			myVal: ""
+		}
+	},
+	watch: {
+		myVal(val, oldVal){
+			console.log(val, oldVal);
+		},
+		list(){
+			this.tellUser()
+		}
+	},
+	computed: {
+		myValue2WithoutNum(){
+			return this.myValue2.replace(/\d/g, '')
 		}
 	},
 	methods: {
+		changeList(){
+			Vue.set(this.list, 1, {
+				name: 'pinaapple',
+				price: 123
+			});
+//			this.tellUser();
+		},
+		tellUser(){
+			alert('list change');
+		},
+		getMyValue2WithouNum(){
+			return this.myValue2.replace(/\d/g, '')
+		},
 		addItem(){
 			this.list.push({
 				name: 'add apple',
@@ -107,6 +184,9 @@ export default {
 		},
 		toggle(){
 			this.isPartA = !this.isPartA;
+		},
+		onComaMyEvent(parmfromA){
+			console.log('onComaMyEvent' + parmfromA);
 		}
 	}
 }
@@ -122,8 +202,8 @@ export default {
   margin-top: 60px;
 }
 .red-font { color: red;}
-h1, h2 {
-  font-weight: normal;
+h3 {
+	font-size: 30px; font-weight: bold; color: #3399ff;
 }
 
 ul {

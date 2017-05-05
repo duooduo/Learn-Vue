@@ -1,6 +1,7 @@
 <template>
 	<div>
 		{{ hello }} - {{dataA}}
+		<button @click="emitMyEvent">$emit</button>
 	</div>
 </template>
 
@@ -13,6 +14,11 @@ export default {
 			key: this.key,
 			name: this.name
 		}
+	},
+	methods: {
+		emitMyEvent(){
+			this.$emit('my-event', this.hello);
+		}
 	}
 }
 
@@ -20,5 +26,7 @@ export default {
 
 <!-- add 'scoped' attribute to limit css to this component only -->
 <style lang="scss" scoped>
-
+	button {
+		height: 40px;
+		width: 100px;}
 </style>
