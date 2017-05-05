@@ -54,7 +54,11 @@
 		</ul>
 		<button @click="changeList">change</button>
 
-
+		<h3>:is 绑定动态组件</h3>
+		div :is="render" 当render属性改变时，组件渲染也会随之改变
+		<div :is="render"></div>
+		<p style="text-align: left">props 父传给子 <br> emit events 子传给父</p>
+		<com-a number="aa"></com-a>
 
 
 		<hr>
@@ -135,7 +139,8 @@ export default {
 				}
 			],
 			myValue2: "啊啊11啊",
-			myVal: ""
+			myVal: "",
+			render: "com-a"
 		}
 	},
 	watch: {

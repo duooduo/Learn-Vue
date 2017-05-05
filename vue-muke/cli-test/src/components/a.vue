@@ -2,12 +2,19 @@
 	<div>
 		{{ hello }} - {{dataA}}
 		<button @click="emitMyEvent">$emit</button>
+		number: {{number}}
 	</div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-	props: ["dataA"],
+//	props: ["dataA","number"],
+	props: {
+		dataA: {},
+		number: {
+			type: [Number, String]
+		}
+	},
 	data(){
 		return {
 			hello: 'I am component a',
